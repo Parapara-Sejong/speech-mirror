@@ -109,7 +109,7 @@ def build_session(session_id: str, reports: list[dict]) -> dict:
         "createdAt": now,
         "updatedAt": now,
         "overall": {
-            "overallScore": overall_score,
+            "score": overall_score,
             "scores": {"content": avg("content"), "delivery": avg("delivery"), "stability": avg("stability")},
             "summary": f"총 {n}개 답변 평균 {overall_score}점.",
             "improvementPoints": points,

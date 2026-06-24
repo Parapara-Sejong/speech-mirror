@@ -53,7 +53,7 @@ class AnswerReport(BaseModel):
 
 
 class Overall(BaseModel):
-    overallScore: int
+    score: int
     scores: Scores
     summary: str
     improvementPoints: list[str]
