@@ -19,6 +19,10 @@ export function AudioTimelinePlayer({ audioUrl, timeline }: Props) {
   const [duration, setDuration] = useState(0);
   const [playing, setPlaying] = useState(false);
 
+  // 오디오 메타데이터(duration)가 없으면 타임라인 마지막 구간 끝을 길이로 폴백.
+  // 샘플 음성이 없어도 발화/침묵/필러 구간·플레이헤드가 올바른 비율로 보이게 한다.
+  const timelineEnd = timeline.length > 0 ? timeline[timeline.length - 1].end : 0;
+  const totalDuration = duration || timelineEnd;
   const current = segmentAtTime(timeline, currentTime);
 
   function toggle() {
@@ -46,7 +50,7 @@ export function AudioTimelinePlayer({ audioUrl, timeline }: Props) {
           {playing ? '❚❚' : '▶'}
         </button>
         <span className="font-mono text-body-sm tabular-nums">
-          {formatTime(currentTime)} / {formatTime(duration)}
+          {formatTime(currentTime)} / {formatTime(totalDuration)}
         </span>
         <span className="text-body-sm text-on-dark-soft">
           {current
@@ -58,7 +62,7 @@ export function AudioTimelinePlayer({ audioUrl, timeline }: Props) {
       </div>
       <TimelineTrack
         timeline={timeline}
-        duration={duration}
+        duration={totalDuration}
         currentTime={currentTime}
         onSeek={seek}
       />
