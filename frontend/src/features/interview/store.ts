@@ -12,6 +12,7 @@ type InterviewState = {
   recommended: RecommendedQuestion[];
   selectedIds: string[];
   finalQuestions: RecommendedQuestion[];
+  idealTraits: string[];
   setResumeText: (text: string) => void;
   setJob: (job: string) => void;
   setInterviewType: (type: string) => void;
@@ -19,6 +20,7 @@ type InterviewState = {
   setRecommended: (questions: RecommendedQuestion[]) => void;
   toggleSelected: (id: string) => void;
   setFinalQuestions: (questions: RecommendedQuestion[]) => void;
+  toggleIdealTrait: (trait: string) => void;
   reset: () => void;
 };
 
@@ -30,6 +32,7 @@ const initialState = {
   recommended: [] as RecommendedQuestion[],
   selectedIds: [] as string[],
   finalQuestions: [] as RecommendedQuestion[],
+  idealTraits: [] as string[],
 };
 
 export const useInterviewStore = create<InterviewState>((set) => ({
@@ -50,5 +53,12 @@ export const useInterviewStore = create<InterviewState>((set) => ({
       return { selectedIds: [...state.selectedIds, id] };
     }),
   setFinalQuestions: (finalQuestions) => set({ finalQuestions }),
+  // 인재상 키워드 토글(선택). ponytail: 지금은 store 보관만, 추후 질문추천·부합도 피드백 입력으로 사용.
+  toggleIdealTrait: (trait) =>
+    set((state) => ({
+      idealTraits: state.idealTraits.includes(trait)
+        ? state.idealTraits.filter((t) => t !== trait)
+        : [...state.idealTraits, trait],
+    })),
   reset: () => set(initialState),
 }));

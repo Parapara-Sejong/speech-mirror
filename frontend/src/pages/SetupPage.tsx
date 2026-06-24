@@ -6,7 +6,7 @@ import { Button } from '../components/ui/Button';
 import { CategoryTab } from '../components/ui/CategoryTab';
 import { recommendQuestions } from '../features/interview/mockQuestions';
 import { useInterviewStore } from '../features/interview/store';
-import { INTERVIEW_TYPES, JOBS } from '../features/interview/types';
+import { IDEAL_TRAITS, INTERVIEW_TYPES, JOBS } from '../features/interview/types';
 
 export function SetupPage() {
   const navigate = useNavigate();
@@ -17,6 +17,8 @@ export function SetupPage() {
   const setInterviewType = useInterviewStore((s) => s.setInterviewType);
   const setMode = useInterviewStore((s) => s.setMode);
   const setRecommended = useInterviewStore((s) => s.setRecommended);
+  const idealTraits = useInterviewStore((s) => s.idealTraits);
+  const toggleIdealTrait = useInterviewStore((s) => s.toggleIdealTrait);
 
   const ready = job !== '' && interviewType !== '';
 
@@ -52,6 +54,24 @@ export function SetupPage() {
                 onClick={() => setInterviewType(t.id)}
               >
                 {t.label}
+              </CategoryTab>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="text-title-lg font-medium text-ink">
+            인재상 <span className="text-body-sm text-muted">(선택)</span>
+          </h2>
+          <p className="text-body-sm text-muted">지원 회사가 원하는 가치를 고르면 추후 질문·피드백에 반영돼요.</p>
+          <div className="flex flex-wrap gap-2">
+            {IDEAL_TRAITS.map((trait) => (
+              <CategoryTab
+                key={trait}
+                active={idealTraits.includes(trait)}
+                onClick={() => toggleIdealTrait(trait)}
+              >
+                {trait}
               </CategoryTab>
             ))}
           </div>
