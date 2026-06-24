@@ -18,7 +18,7 @@ export const PRICING_TIERS: PricingTier[] = [
   },
   {
     name: '프로',
-    price: '₩19,000',
+    price: '₩9,900',
     period: '/월',
     featured: true,
     features: ['무제한 모의 면접', 'AI 상세 피드백', '직무별 질문 세트', '기록 무제한'],
@@ -26,7 +26,7 @@ export const PRICING_TIERS: PricingTier[] = [
   },
   {
     name: '맥스',
-    price: '₩49,000',
+    price: '₩19,000',
     period: '/월',
     features: ['프로 전체 포함', '실시간 음성 면접', '맞춤 커리큘럼', '우선 지원'],
     ctaLabel: '맥스 시작하기',
