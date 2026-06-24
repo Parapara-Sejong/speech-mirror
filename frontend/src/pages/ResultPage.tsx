@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { BalanceTriangle } from '../components/result/BalanceTriangle';
 import { ContentFeedbackPanel } from '../components/result/ContentFeedbackPanel';
 import { FillerCard } from '../components/result/FillerCard';
 import { ImprovementList } from '../components/result/ImprovementList';
@@ -8,6 +9,8 @@ import { ScorePanel } from '../components/result/ScorePanel';
 import { SilenceCard } from '../components/result/SilenceCard';
 import { SpeedGraph } from '../components/result/SpeedGraph';
 import { TranscriptPanel } from '../components/result/TranscriptPanel';
+import { WeightedScoreGauge } from '../components/result/WeightedScoreGauge';
+import { WeightedScoreLedger } from '../components/result/WeightedScoreLedger';
 import { CategoryTab } from '../components/ui/CategoryTab';
 import { useAnalysisReportQuery } from '../features/analysis/useAnalysisReportQuery';
 import { useAnalysisStore } from '../stores/useAnalysisStore';
@@ -34,7 +37,9 @@ export function ResultPage() {
         {/* 면접 전체 종합 */}
         <section className="flex flex-col gap-4">
           <h1 className="text-display-sm text-ink">면접 종합 리포트</h1>
-          <ScorePanel overallScore={session.overall.score} scores={session.overall.scores} />
+          <WeightedScoreGauge overallScore={session.overall.score} />
+          <WeightedScoreLedger overallScore={session.overall.score} scores={session.overall.scores} />
+          <BalanceTriangle scores={session.overall.scores} />
           <p className="text-body-md text-body">{session.overall.summary}</p>
           <ImprovementList points={session.overall.improvementPoints} />
         </section>

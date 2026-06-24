@@ -87,6 +87,27 @@
 
   /* spacing — 의미 토큰 */
   --spacing-section: 96px;
+
+  /* animations — 결과 차트 등장. motion-safe:로만 적용해 reduced-motion이면 최종 상태로 즉시 */
+  --animate-gauge-fill: gauge-fill 700ms ease-out;
+  --animate-bar-grow: bar-grow 700ms ease-out;
+  --animate-pop-in: pop-in 700ms ease-out;
+
+  @keyframes gauge-fill {
+    from {
+      stroke-dashoffset: 1;
+    }
+  }
+  @keyframes bar-grow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes pop-in {
+    from {
+      transform: scale(0);
+    }
+  }
 }
 
 body {
