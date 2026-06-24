@@ -33,6 +33,7 @@ export function UploadPage() {
           type="file"
           accept=".txt,.pdf,.docx"
           onChange={onFile}
+          aria-label="이력서 파일 선택"
           className="text-body-sm text-body"
         />
         {notice ? <p className="text-body-sm text-muted">{notice}</p> : null}
