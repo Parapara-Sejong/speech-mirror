@@ -5,6 +5,8 @@ from fastapi import APIRouter, File, HTTPException, UploadFile
 
 from app.services.clova_speech import ClovaSpeechError, transcribe_audio
 
+from app.services.filler_words import analyze_fillers
+
 router = APIRouter(prefix="/interview", tags=["interview"])
 
 
@@ -23,8 +25,11 @@ async def transcribe(media: UploadFile = File(...)):
     finally:
         os.remove(tmp_path)
 
+    filler_analysis = analyze_fillers(result)
+
     return {
         "text": result.get("text", ""),
         "segments": result.get("segments", []),
         "speakers": result.get("speakers", []),
+        "filler_analysis": filler_analysis,
     }
