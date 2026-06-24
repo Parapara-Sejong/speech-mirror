@@ -5,6 +5,7 @@ export type MicStatus = 'idle' | 'ready' | 'recording' | 'denied' | 'error';
 export function useRecorder() {
   const [micStatus, setMicStatus] = useState<MicStatus>('idle');
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
@@ -38,6 +39,7 @@ export function useRecorder() {
     }
     revoke();
     setAudioUrl(null);
+    setAudioBlob(null);
     chunksRef.current = [];
     const recorder = new MediaRecorder(stream);
     recorder.ondataavailable = (e) => {
@@ -45,6 +47,7 @@ export function useRecorder() {
     };
     recorder.onstop = () => {
       const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
+      setAudioBlob(blob);
       const url = URL.createObjectURL(blob);
       audioUrlRef.current = url;
       setAudioUrl(url);
@@ -69,6 +72,7 @@ export function useRecorder() {
     recorderRef.current = null;
     revoke();
     setAudioUrl(null);
+    setAudioBlob(null);
   }
 
   // 언마운트 시 스트림·URL 정리
@@ -83,6 +87,7 @@ export function useRecorder() {
     micStatus,
     isRecording: micStatus === 'recording',
     audioUrl,
+    audioBlob,
     requestMic,
     start,
     stop,
