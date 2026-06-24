@@ -23,6 +23,11 @@ async def _read_source(file: UploadFile | None, text: str | None) -> str:
     "/recommend",
     response_model=list[RecommendedQuestion],
     summary="이력서·자소서·인재상 기반 면접 질문 추천",
+    description=(
+        "직종·면접종류와 이력서/자소서/인재상(파일 또는 텍스트)을 받아 Gemini로 면접 질문을 생성한다. "
+        "키 미설정·생성 실패 시 폴백 질문을 반환한다."
+    ),
+    responses={400: {"description": "job·interviewType 누락"}},
 )
 async def recommend(
     job: str = Form("", description="직종 (예: 백엔드)"),
