@@ -5,6 +5,7 @@ import { apiClient } from '../lib/apiClient';
 type TranscribeResult = {
   text: string;
   segments: { text: string; speaker?: { label: string; name?: string } }[];
+  filler_analysis?: { total: number; counts: Record<string, number> };
 };
 
 export function InterviewPage() {
@@ -116,6 +117,17 @@ export function InterviewPage() {
                     </p>
                   ))}
                 </div>
+              ) : null}
+
+              {result.filler_analysis ? (
+                <p className="text-xs text-zinc-400">
+                  필러 단어 {result.filler_analysis.total}회
+                  {Object.entries(result.filler_analysis.counts).length > 0
+                    ? ` (${Object.entries(result.filler_analysis.counts)
+                        .map(([word, count]) => `${word} ${count}회`)
+                        .join(', ')})`
+                    : null}
+                </p>
               ) : null}
             </div>
           ) : null}
