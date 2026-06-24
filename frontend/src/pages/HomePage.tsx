@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import defaultMascot from '../../assets/images/default.png';
 import { CtaBand } from '../components/sections/CtaBand';
 import { Footer } from '../components/sections/Footer';
 import { HeroBand } from '../components/sections/HeroBand';
@@ -17,6 +18,13 @@ export function HomePage() {
           title="당신의 면접을 비추는 거울"
           subtitle="한국어 발화를 분석해 말 속도·침묵·필러 단어까지 교정합니다."
           actions={<Button onClick={() => navigate('/upload')}>시작하기</Button>}
+          aside={
+            <img
+              src={defaultMascot}
+              alt="말거울 대표 캐릭터"
+              className="mx-auto w-full max-w-sm"
+            />
+          }
         />
         <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <FeatureCard title="말 속도 분석">
