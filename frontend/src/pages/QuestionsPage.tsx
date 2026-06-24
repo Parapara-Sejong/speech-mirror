@@ -7,6 +7,7 @@ import { Button } from '../components/ui/Button';
 import { buildFinalQuestions } from '../features/interview/lib/buildFinalQuestions';
 import { recommendQuestions } from '../features/interview/mockQuestions';
 import { useInterviewStore } from '../features/interview/store';
+import { USE_MOCK } from '../lib/config';
 
 export function QuestionsPage() {
   const navigate = useNavigate();
@@ -17,8 +18,9 @@ export function QuestionsPage() {
   const toggleSelected = useInterviewStore((s) => s.toggleSelected);
   const setFinalQuestions = useInterviewStore((s) => s.setFinalQuestions);
 
-  // 딥링크 폴백: 추천이 비어 있으면 mock 사용(스토어는 건드리지 않음)
-  const list = recommended.length > 0 ? recommended : recommendQuestions(job, interviewType);
+  // 실서버 모드: store의 추천(FastAPI 결과)만 사용. mock 모드 + 딥링크로 추천이 비면 mock으로 채움.
+  const list =
+    recommended.length > 0 ? recommended : USE_MOCK ? recommendQuestions(job, interviewType) : [];
   const reachedMax = selectedIds.length >= 3;
 
   function onStart() {
@@ -34,7 +36,7 @@ export function QuestionsPage() {
         <div className="flex flex-col gap-1">
           <h1 className="text-display-sm font-semibold text-ink">질문 3개를 골라주세요</h1>
           <p className="text-body-sm text-muted">
-            선택 {selectedIds.length}/3 · 미선택 질문 중 1개가 랜덤으로 추가돼 총 4문항으로 진행돼요.
+            선택 {selectedIds.length}/3 · 고른 3문항으로 면접을 진행해요.
           </p>
         </div>
         <div className="flex flex-col gap-3">

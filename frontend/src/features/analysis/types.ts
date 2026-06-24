@@ -34,19 +34,31 @@ export type ContentFeedback = {
   competencyFit: string;
 };
 
-export type AnalysisReport = {
-  id: string;
-  status: ReportStatus;
+// 답변 1개 단위 분석(질문별). 면접 세션은 이걸 N개 가진다.
+export type AnswerReport = {
   question: string;
   questionCompetency: string;
   overallScore: number;
   scores: { content: number; delivery: number; stability: number };
   transcript: string;
-  audioUrl: string;
   speechMetrics: SpeechMetrics;
   timeline: TimelineSegment[];
   contentFeedback: ContentFeedback;
   improvementPoints: string[];
+};
+
+// 면접 한 세션 = 답변 N개 + 종합. POST /analyses 가 N개 오디오를 한 번에 받아 만든다.
+export type AnalysisSession = {
+  id: string;
+  status: ReportStatus;
   createdAt: string;
   updatedAt: string;
+  // 면접 전체 종합(답변들을 묶은 결과)
+  overall: {
+    score: number;
+    scores: { content: number; delivery: number; stability: number };
+    summary: string;
+    improvementPoints: string[];
+  };
+  answers: AnswerReport[];
 };

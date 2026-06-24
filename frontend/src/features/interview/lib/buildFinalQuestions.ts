@@ -1,12 +1,9 @@
 import type { RecommendedQuestion } from '../types';
 
-// 선택 질문 + 미선택 중 랜덤 1개 = 최종 문항 (PRD §6.3 FR-009~011)
+// 선택한 질문(3개)이 곧 최종 문항. 실제 녹음도 이 개수만큼 진행한다.
 export function buildFinalQuestions(
   recommended: RecommendedQuestion[],
   selectedIds: string[],
 ): RecommendedQuestion[] {
-  const selected = recommended.filter((q) => selectedIds.includes(q.id));
-  const rest = recommended.filter((q) => !selectedIds.includes(q.id));
-  const random = rest.length > 0 ? rest[Math.floor(Math.random() * rest.length)] : undefined;
-  return random ? [...selected, random] : selected;
+  return recommended.filter((q) => selectedIds.includes(q.id));
 }

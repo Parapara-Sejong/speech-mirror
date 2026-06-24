@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { AnalysisPage } from './pages/AnalysisPage';
 import { InterviewPage } from './pages/InterviewPage';
 import { HomePage } from './pages/HomePage';
+import { PricingPage } from './pages/PricingPage';
 import { QuestionsPage } from './pages/QuestionsPage';
 import { ResultPage } from './pages/ResultPage';
 import { SetupPage } from './pages/SetupPage';
@@ -22,6 +23,9 @@ function App() {
         <Link to="/showcase" className="text-ink">
           Showcase
         </Link>
+        <Link to="/pricing" className="text-ink">
+          Pricing
+        </Link>
       </nav>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -31,6 +35,7 @@ function App() {
         <Route path="/interview" element={<InterviewPage />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/showcase" element={<ShowcasePage />} />
+        <Route path="/pricing" element={<PricingPage />} />
         <Route path="/dev" element={<AnalysisPage />} />
       </Routes>
     </BrowserRouter>
