@@ -1,6 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 
 import { AnalysisPage } from './pages/AnalysisPage';
+import { InterviewPage } from './pages/InterviewPage';
 import { HomePage } from './pages/HomePage';
 import { QuestionsPage } from './pages/QuestionsPage';
 import { ResultPage } from './pages/ResultPage';
@@ -27,6 +28,7 @@ function App() {
         <Route path="/upload" element={<UploadPage />} />
         <Route path="/setup" element={<SetupPage />} />
         <Route path="/questions" element={<QuestionsPage />} />
+        <Route path="/interview" element={<InterviewPage />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/showcase" element={<ShowcasePage />} />
         <Route path="/dev" element={<AnalysisPage />} />
