@@ -103,8 +103,8 @@ def generate_questions(
         )
         items = json.loads(response.text)
         pairs = [(it["question"], it["competency"]) for it in items][:QUESTION_COUNT]
-        if not pairs:
-            raise ValueError("GEMINI 빈 응답")
+        if len(pairs) < QUESTION_COUNT:
+            raise ValueError(f"GEMINI 응답 부족: {len(pairs)}개")
         return _with_ids(pairs)
     except Exception as exc:  # noqa: BLE001 - 실패 시 폴백으로 데모 유지
         logger.warning("GEMINI 질문 생성 실패 — 폴백 반환: %s", exc)
