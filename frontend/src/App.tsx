@@ -1,6 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 
 import { AnalysisPage } from './pages/AnalysisPage';
+import { InterviewPage } from './pages/InterviewPage';
 import { ShowcasePage } from './pages/ShowcasePage';
 
 function App() {
@@ -10,12 +11,16 @@ function App() {
         <Link to="/" className="text-ink">
           Analysis
         </Link>
+        <Link to="/interview" className="text-ink">
+          Interview
+        </Link>
         <Link to="/showcase" className="text-ink">
           Showcase
         </Link>
       </nav>
       <Routes>
         <Route path="/" element={<AnalysisPage />} />
+        <Route path="/interview" element={<InterviewPage />} />
         <Route path="/showcase" element={<ShowcasePage />} />
       </Routes>
     </BrowserRouter>
