@@ -6,14 +6,14 @@ type FlowProgressProps = {
 
 export function FlowProgress({ current }: FlowProgressProps) {
   return (
-    <ol className="flex flex-wrap items-center gap-2 text-caption">
+    <ol className="flex flex-wrap items-center gap-2 text-body-md">
       {STEPS.map((label, i) => (
         <li key={label} className="flex items-center gap-2">
           <span
             className={
               i <= current
-                ? 'flex h-6 w-6 items-center justify-center rounded-full bg-primary text-on-primary'
-                : 'flex h-6 w-6 items-center justify-center rounded-full bg-surface-card text-muted'
+                ? 'flex h-8 w-8 items-center justify-center rounded-full bg-primary text-on-primary'
+                : 'flex h-8 w-8 items-center justify-center rounded-full bg-surface-card text-muted'
             }
           >
             {i + 1}

@@ -87,7 +87,7 @@ export function InterviewPage() {
     <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-10">
         <FlowProgress current={3} />
-        <img src={listeningMascot} alt="말거울 캐릭터" className="mx-auto w-24" />
+        <img src={listeningMascot} alt="말거울 캐릭터" className="mx-auto w-32" />
         <div className="flex items-center justify-between">
           <span className="text-body-sm text-muted">
             {index + 1} / {questions.length}

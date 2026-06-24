@@ -16,7 +16,7 @@ export function ScorePanel({ overallScore, scores }: Props) {
   return (
     <section className="flex flex-col gap-6 rounded-lg bg-surface-card p-8 sm:flex-row sm:items-center">
       <div className="flex items-center gap-5">
-        <img src={MASCOT_SRC[mascot]} alt="" className="h-24 w-24 object-contain" />
+        <img src={MASCOT_SRC[mascot]} alt="" className="h-32 w-32 object-contain" />
         <div>
           <p className="text-body-sm text-muted">종합 점수</p>
           <p className="text-display-lg text-ink">{overallScore}</p>

@@ -32,10 +32,10 @@ export function QuestionsPage() {
     <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-10">
         <FlowProgress current={2} />
-        <img src={thinkingMascot} alt="말거울 캐릭터" className="mx-auto w-24" />
+        <img src={thinkingMascot} alt="말거울 캐릭터" className="mx-auto w-32" />
         <div className="flex flex-col gap-1">
-          <h1 className="text-display-sm font-semibold text-ink">질문 3개를 골라주세요</h1>
-          <p className="text-body-sm text-muted">
+          <h1 className="text-display-md font-semibold text-ink">질문 3개를 골라주세요</h1>
+          <p className="text-body-md text-muted">
             선택 {selectedIds.length}/3 · 고른 3문항으로 면접을 진행해요.
           </p>
         </div>

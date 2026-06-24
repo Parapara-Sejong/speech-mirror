@@ -22,7 +22,7 @@ export function QuestionCard({ question, selected, disabled, onToggle }: Questio
       )}
     >
       <Badge>{question.competency}</Badge>
-      <p className="text-body-md text-ink">{question.question}</p>
+      <p className="text-title-md text-ink">{question.question}</p>
     </button>
   );
 }
