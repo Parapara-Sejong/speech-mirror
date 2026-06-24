@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import thinkingMascot from '../../assets/images/thinking.png';
 import { FlowProgress } from '../components/interview/FlowProgress';
 import { QuestionCard } from '../components/interview/QuestionCard';
 import { Button } from '../components/ui/Button';
@@ -29,6 +30,7 @@ export function QuestionsPage() {
     <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-10">
         <FlowProgress current={2} />
+        <img src={thinkingMascot} alt="말거울 캐릭터" className="mx-auto w-24" />
         <div className="flex flex-col gap-1">
           <h1 className="text-display-sm font-semibold text-ink">질문 3개를 골라주세요</h1>
           <p className="text-body-sm text-muted">

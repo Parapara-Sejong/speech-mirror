@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import cheeringMascot from '../../assets/images/cheering.png';
 import { FlowProgress } from '../components/interview/FlowProgress';
 import { Button } from '../components/ui/Button';
 import { CategoryTab } from '../components/ui/CategoryTab';
@@ -28,6 +29,7 @@ export function SetupPage() {
     <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-10">
         <FlowProgress current={1} />
+        <img src={cheeringMascot} alt="말거울 캐릭터" className="mx-auto w-24" />
 
         <section className="flex flex-col gap-3">
           <h2 className="text-title-lg font-medium text-ink">직종</h2>

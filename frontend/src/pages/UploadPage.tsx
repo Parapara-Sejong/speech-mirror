@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import helloMascot from '../../assets/images/hello.png';
 import { FlowProgress } from '../components/interview/FlowProgress';
 import { Button } from '../components/ui/Button';
 import { extractResume } from '../features/interview/lib/extractResume';
@@ -28,6 +29,7 @@ export function UploadPage() {
     <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-10">
         <FlowProgress current={0} />
+        <img src={helloMascot} alt="말거울 캐릭터" className="mx-auto w-24" />
         <h1 className="text-display-sm font-semibold text-ink">이력서 업로드</h1>
         <input
           type="file"
