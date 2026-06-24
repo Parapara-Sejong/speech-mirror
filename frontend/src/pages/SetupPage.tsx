@@ -6,7 +6,7 @@ import { FileDropzone } from '../components/interview/FileDropzone';
 import { FlowProgress } from '../components/interview/FlowProgress';
 import { Button } from '../components/ui/Button';
 import { CategoryTab } from '../components/ui/CategoryTab';
-import { extractText } from '../features/interview/lib/extractResume';
+import { extractText } from '../features/interview/lib/extractText';
 import { generateQuestions } from '../features/interview/questionApi';
 import { useInterviewStore } from '../features/interview/store';
 import { IDEAL_TRAITS, INTERVIEW_TYPES, JOBS } from '../features/interview/types';
@@ -93,7 +93,8 @@ export function SetupPage() {
             인재상 <span className="text-body-sm text-muted">(선택)</span>
           </h2>
           <p className="text-body-sm text-muted">
-            지원 회사가 원하는 가치를 고르거나, 인재상 파일(.md·.pdf 등)을 올리면 추후 질문·피드백에 반영돼요.
+            지원 회사가 원하는 가치를 고르거나, 인재상 파일(.md·.pdf 등)을 올리면 추후 질문·피드백에
+            반영돼요.
           </p>
           <div className="flex flex-wrap gap-2">
             {IDEAL_TRAITS.map((trait) => (
@@ -109,7 +110,7 @@ export function SetupPage() {
           <FileDropzone
             label="인재상 파일을 끌어다 놓거나 클릭해 선택"
             accept=".txt,.md,.pdf,.docx"
-            hint="TXT·MD는 미리보기까지 · PDF·DOCX는 업로드만(서버에서 추출)"
+            hint="TXT·MD는 미리보기까지 · PDF·DOCX는 업로드만"
             fileName={idealProfile.fileName}
             onFile={onIdealFile}
           />

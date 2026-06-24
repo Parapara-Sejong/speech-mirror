@@ -4,11 +4,11 @@ import helloMascot from '../../assets/images/hello.png';
 import { FileDropzone } from '../components/interview/FileDropzone';
 import { FlowProgress } from '../components/interview/FlowProgress';
 import { Button } from '../components/ui/Button';
-import { extractText } from '../features/interview/lib/extractResume';
+import { extractText } from '../features/interview/lib/extractText';
 import { useInterviewStore } from '../features/interview/store';
 import type { SourceKey } from '../features/interview/store';
 
-const FILE_HINT = 'TXT·MD는 미리보기까지 · PDF·DOCX는 업로드만(서버에서 추출)';
+const FILE_HINT = 'TXT·MD는 미리보기까지 · PDF·DOCX는 업로드만';
 
 export function UploadPage() {
   const navigate = useNavigate();
