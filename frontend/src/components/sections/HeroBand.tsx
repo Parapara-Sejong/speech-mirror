@@ -15,8 +15,10 @@ export function HeroBand({ eyebrow, title, subtitle, actions, aside }: HeroBandP
         {eyebrow ? (
           <span className="text-caption-uppercase uppercase text-primary">{eyebrow}</span>
         ) : null}
-        <h1 className="text-display-xl font-semibold text-ink">{title}</h1>
-        {subtitle ? <p className="text-title-md text-body">{subtitle}</p> : null}
+        <h1 className="break-keep text-display-md font-semibold text-ink md:text-display-xl">
+          {title}
+        </h1>
+        {subtitle ? <p className="break-keep text-title-md text-body">{subtitle}</p> : null}
         {actions ? <div className="mt-2 flex flex-wrap gap-3">{actions}</div> : null}
       </div>
       {aside ? <div>{aside}</div> : null}

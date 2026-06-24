@@ -19,11 +19,11 @@ export function CtaBand({ variant = 'coral', title, subtitle, action }: CtaBandP
         isCoral ? 'bg-primary text-on-primary' : 'bg-surface-dark text-on-dark',
       )}
     >
-      <h2 className="text-display-sm font-semibold">{title}</h2>
+      <h2 className="break-keep text-display-sm font-semibold">{title}</h2>
       {subtitle ? (
         <p
           className={cn(
-            'mx-auto mt-3 max-w-xl text-body-md',
+            'mx-auto mt-3 max-w-xl break-keep text-body-md',
             isCoral ? 'text-on-primary/90' : 'text-on-dark-soft',
           )}
         >
