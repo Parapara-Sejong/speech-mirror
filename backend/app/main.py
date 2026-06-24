@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import interview
+from app.routers import interview, questions
 
 # 비밀키는 루트 .env 단일 소스. backend/app/main.py → parents[2] = repo root.
 # uvicorn을 backend/에서 띄워도(cwd=backend) 루트 .env를 읽게 경로를 명시한다.
@@ -20,3 +20,4 @@ app.add_middleware(
 )
 
 app.include_router(interview.router)
+app.include_router(questions.router)
