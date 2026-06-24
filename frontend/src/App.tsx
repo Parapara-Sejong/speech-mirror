@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { AnalysisPage } from './pages/AnalysisPage';
 import { HomePage } from './pages/HomePage';
 import { ResultPage } from './pages/ResultPage';
+import { SetupPage } from './pages/SetupPage';
 import { ShowcasePage } from './pages/ShowcasePage';
 import { UploadPage } from './pages/UploadPage';
 
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/upload" element={<UploadPage />} />
+        <Route path="/setup" element={<SetupPage />} />
         <Route path="/result" element={<ResultPage />} />
         <Route path="/showcase" element={<ShowcasePage />} />
         <Route path="/dev" element={<AnalysisPage />} />
