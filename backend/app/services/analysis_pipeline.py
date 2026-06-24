@@ -6,9 +6,13 @@ from app.services import analysis_store, clova_speech, gemini_verify, speech_met
 
 logger = logging.getLogger(__name__)
 
-# calibration 노브 — 점수 가중치·이상범위
-WEIGHTS = {"content": 0.5, "delivery": 0.25, "stability": 0.25}
+# calibration 노브 — 점수 가중치·이상범위·기준선
+# content(Gemini)는 변별력이 좋아 비중을 키우고, delivery/stability는 100이 아닌 88에서
+# 시작해(만점 자제) 감점을 키워 유창함만으로 총점이 떠받쳐지지 않게 한다.
+WEIGHTS = {"content": 0.6, "delivery": 0.2, "stability": 0.2}
 IDEAL_WPM = (110, 160)
+DELIVERY_BASE = 88
+STABILITY_BASE = 88
 
 
 def _now() -> str:
@@ -18,20 +22,20 @@ def _now() -> str:
 def score_delivery(metrics: dict) -> int:
     wpm = metrics["speakingRate"]
     if wpm < IDEAL_WPM[0]:
-        rate_pen = min(40, (IDEAL_WPM[0] - wpm) * 0.8)
+        rate_pen = min(40, (IDEAL_WPM[0] - wpm) * 1.0)
     elif wpm > IDEAL_WPM[1]:
-        rate_pen = min(40, (wpm - IDEAL_WPM[1]) * 0.8)
+        rate_pen = min(40, (wpm - IDEAL_WPM[1]) * 1.0)
     else:
         rate_pen = 0
     fillers = sum(metrics["fillerWords"].values())
-    filler_pen = min(40, fillers * 4)  # 필러 1개당 4점 감점, 최대 40
-    return max(0, round(100 - rate_pen - filler_pen))
+    filler_pen = min(45, fillers * 5)  # 필러 1개당 5점 감점, 최대 45
+    return max(0, round(DELIVERY_BASE - rate_pen - filler_pen))
 
 
 def score_stability(metrics: dict) -> int:
-    sil_pen = min(40, metrics["silenceCount"] * 5 + max(0.0, metrics["longestSilence"] - 2) * 8)
-    ratio_pen = max(0.0, 0.8 - metrics["speechRatio"]) * 100  # speechRatio<0.8면 감점
-    return max(0, round(100 - sil_pen - ratio_pen))
+    sil_pen = min(45, metrics["silenceCount"] * 7 + max(0.0, metrics["longestSilence"] - 1.5) * 10)
+    ratio_pen = max(0.0, 0.85 - metrics["speechRatio"]) * 120  # speechRatio<0.85면 감점
+    return max(0, round(STABILITY_BASE - sil_pen - ratio_pen))
 
 
 def _transcribe_both(answer: dict) -> tuple[dict, str, bool]:
