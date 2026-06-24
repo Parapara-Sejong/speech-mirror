@@ -12,6 +12,8 @@ export function useRecorder() {
 
   // 마이크 권한 요청 + 스트림 확보
   async function requestMic() {
+    // 재호출 시 이전 스트림 트랙 정리(누수 방지)
+    streamRef.current?.getTracks().forEach((t) => t.stop());
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
@@ -59,6 +61,12 @@ export function useRecorder() {
 
   // 다음 질문으로 넘어갈 때 현재 녹음 정리
   function reset() {
+    // 녹음 중이면 onstop이 새 URL을 만들지 못하게 무효화 후 정지(누수 방지)
+    if (recorderRef.current?.state === 'recording') {
+      recorderRef.current.onstop = null;
+      recorderRef.current.stop();
+    }
+    recorderRef.current = null;
     revoke();
     setAudioUrl(null);
   }
