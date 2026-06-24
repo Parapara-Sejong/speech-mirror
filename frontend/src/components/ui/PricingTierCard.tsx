@@ -8,6 +8,7 @@ type PricingTierCardProps = {
   features: string[];
   featured?: boolean;
   ctaLabel: string;
+  onCtaClick?: () => void;
 };
 
 export function PricingTierCard({
@@ -17,6 +18,7 @@ export function PricingTierCard({
   features,
   featured = false,
   ctaLabel,
+  onCtaClick,
 }: PricingTierCardProps) {
   return (
     <div
@@ -37,7 +39,7 @@ export function PricingTierCard({
         ) : null}
       </p>
       <div className="mt-8">
-        <Button variant={featured ? 'secondary-on-dark' : 'primary'} className="w-full">
+        <Button variant={featured ? 'secondary-on-dark' : 'primary'} className="w-full" onClick={onCtaClick}>
           {ctaLabel}
         </Button>
       </div>

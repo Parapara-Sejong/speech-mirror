@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { CtaBand } from '../components/sections/CtaBand';
 import { Footer } from '../components/sections/Footer';
 import { HeroBand } from '../components/sections/HeroBand';
@@ -7,6 +9,9 @@ import { ProductMockupCardDark } from '../components/ui/ProductMockupCardDark';
 import { PRICING_TIERS } from '../constants/pricing';
 
 export function PricingPage() {
+  const navigate = useNavigate();
+  const goHome = () => navigate('/');
+
   return (
     <main className="min-h-screen bg-canvas text-body">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-section px-6 py-12">
@@ -14,7 +19,7 @@ export function PricingPage() {
           eyebrow="수익화 구조"
           title="무료 연습에서 유료 코칭으로"
           subtitle="기본 모의 면접은 무료로 열어두고, 더 많은 연습과 상세 피드백은 유료 플랜으로 확장합니다."
-          actions={<Button>무료로 시작</Button>}
+          actions={<Button onClick={goHome}>무료로 시작</Button>}
           aside={
             <ProductMockupCardDark title="플랜 구조">
               무료 사용자가 말하기 습관을 확인한 뒤, 프로 플랜에서 무제한 연습과 직무별 피드백으로
@@ -25,7 +30,11 @@ export function PricingPage() {
 
         <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {PRICING_TIERS.map((tier) => (
-            <PricingTierCard key={tier.name} {...tier} />
+            <PricingTierCard
+              key={tier.name}
+              {...tier}
+              onCtaClick={tier.ctaLabel === '무료로 시작' ? goHome : undefined}
+            />
           ))}
         </section>
 
