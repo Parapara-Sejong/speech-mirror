@@ -37,3 +37,21 @@ export const IDEAL_TRAITS = [
   '창의성',
   '전문성',
 ] as const;
+
+// 질문 생성 입력 소스 1종(이력서/자기소개서/인재상). 원본 파일 + (선택)미리보기 텍스트.
+// 실제 추출(특히 PDF/DOCX)은 FastAPI가 담당. file은 그대로 업로드, text는 TXT/MD 미리보기·직접 입력분.
+export type SourceDoc = {
+  file: File | null;
+  text: string;
+  fileName: string;
+};
+
+// GEMINI 질문 생성 입력 계약. FastAPI POST /questions/recommend 가 구현한다.
+export type QuestionGenInput = {
+  resume: SourceDoc; // 이력서
+  coverLetter: SourceDoc; // 자기소개서
+  idealProfile: SourceDoc; // 인재상(파일/텍스트)
+  idealTraits: string[]; // 인재상 키워드 칩
+  job: string;
+  interviewType: string;
+};

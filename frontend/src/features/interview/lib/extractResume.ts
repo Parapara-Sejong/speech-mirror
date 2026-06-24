@@ -1,11 +1,17 @@
-// TXT만 실제 추출. 그 외 형식·실패 시 null → UI가 직접 입력 폴백을 노출한다.
-export async function extractResume(file: File): Promise<string | null> {
-  const isTxt = file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt');
-  if (!isTxt) return null;
+// 미리보기·직접입력용 가벼운 텍스트 추출(TXT·MD만, 라이브러리 0).
+// 실제 추출(PDF/DOCX 포함)은 FastAPI가 담당 — 원본 file은 그대로 업로드한다.
+// (파일명은 추후 extractText.ts로 정리 예정)
+export async function extractText(file: File): Promise<string | null> {
+  const name = file.name.toLowerCase();
+  const isText =
+    file.type === 'text/plain' ||
+    file.type === 'text/markdown' ||
+    name.endsWith('.txt') ||
+    name.endsWith('.md');
+  if (!isText) return null;
   try {
-    const text = await file.text();
-    const trimmed = text.trim();
-    return trimmed.length > 0 ? trimmed : null;
+    const text = (await file.text()).trim();
+    return text.length > 0 ? text : null;
   } catch {
     return null;
   }

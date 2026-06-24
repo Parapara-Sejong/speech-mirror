@@ -1,87 +1,75 @@
-import { ChangeEvent, DragEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import helloMascot from '../../assets/images/hello.png';
+import { FileDropzone } from '../components/interview/FileDropzone';
 import { FlowProgress } from '../components/interview/FlowProgress';
 import { Button } from '../components/ui/Button';
-import { extractResume } from '../features/interview/lib/extractResume';
+import { extractText } from '../features/interview/lib/extractResume';
 import { useInterviewStore } from '../features/interview/store';
-import { cn } from '../lib/cn';
+import type { SourceKey } from '../features/interview/store';
+
+const FILE_HINT = 'TXT·MD는 미리보기까지 · PDF·DOCX는 업로드만(서버에서 추출)';
 
 export function UploadPage() {
   const navigate = useNavigate();
-  const resumeText = useInterviewStore((s) => s.resumeText);
-  const setResumeText = useInterviewStore((s) => s.setResumeText);
-  const [notice, setNotice] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [dragActive, setDragActive] = useState(false);
+  const resume = useInterviewStore((s) => s.resume);
+  const coverLetter = useInterviewStore((s) => s.coverLetter);
+  const setSource = useInterviewStore((s) => s.setSource);
 
-  // 파일 1개 추출 시도 → TXT면 본문 채움, 그 외/실패는 직접 입력 안내
-  async function handleFile(file: File) {
-    setFileName(file.name);
-    const text = await extractResume(file);
-    if (text) {
-      setResumeText(text);
-      setNotice('이력서 텍스트를 추출했어요. 필요하면 수정하세요.');
-    } else {
-      setNotice('이 형식은 자동 추출이 안 돼요. 아래에 내용을 직접 붙여넣어 주세요.');
-    }
+  // 파일 선택 시: 원본 보관 + TXT/MD면 미리보기 텍스트 채움
+  async function onFile(key: SourceKey, file: File) {
+    setSource(key, { file, fileName: file.name });
+    const text = await extractText(file);
+    if (text) setSource(key, { text });
   }
 
-  function onInputChange(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (file) void handleFile(file);
-  }
-
-  function onDrop(e: DragEvent<HTMLLabelElement>) {
-    e.preventDefault();
-    setDragActive(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) void handleFile(file);
-  }
+  const resumeReady = resume.text.trim().length > 0 || resume.file !== null;
 
   return (
     <main className="min-h-screen bg-canvas">
       <div className="mx-auto flex max-w-2xl flex-col gap-6 px-6 py-10">
         <FlowProgress current={0} />
         <img src={helloMascot} alt="말거울 캐릭터" className="mx-auto w-24" />
-        <h1 className="text-display-sm font-semibold text-ink">이력서 업로드</h1>
+        <h1 className="text-display-sm font-semibold text-ink">이력서 · 자기소개서</h1>
 
-        <label
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDragActive(true);
-          }}
-          onDragLeave={() => setDragActive(false)}
-          onDrop={onDrop}
-          className={cn(
-            'flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed p-8 text-center',
-            dragActive ? 'border-primary bg-surface-soft' : 'border-hairline bg-canvas',
-          )}
-        >
-          <span className="text-title-sm font-medium text-ink">
-            이력서 파일을 끌어다 놓거나 클릭해 선택
-          </span>
-          <span className="text-body-sm text-muted">TXT는 자동 추출 · PDF·DOCX 등은 아래에 직접 입력</span>
-          {fileName ? <span className="mt-1 text-body-sm text-primary">{fileName}</span> : null}
-          <input
-            type="file"
-            accept=".txt,.pdf,.docx"
-            onChange={onInputChange}
-            aria-label="이력서 파일 선택"
-            className="sr-only"
+        <section className="flex flex-col gap-3">
+          <h2 className="text-title-md font-medium text-ink">이력서</h2>
+          <FileDropzone
+            label="이력서 파일을 끌어다 놓거나 클릭해 선택"
+            accept=".txt,.md,.pdf,.docx"
+            hint={FILE_HINT}
+            fileName={resume.fileName}
+            onFile={(f) => onFile('resume', f)}
           />
-        </label>
+          <textarea
+            value={resume.text}
+            onChange={(e) => setSource('resume', { text: e.target.value })}
+            placeholder="이력서 내용을 직접 입력하거나 파일에서 불러오세요."
+            className="min-h-40 rounded-md border border-hairline bg-canvas p-4 text-body-md text-ink outline-none focus:border-primary"
+          />
+        </section>
 
-        {notice ? <p className="text-body-sm text-muted">{notice}</p> : null}
-        <textarea
-          value={resumeText}
-          onChange={(e) => setResumeText(e.target.value)}
-          placeholder="이력서 내용을 직접 입력하거나 파일에서 추출하세요."
-          className="min-h-48 rounded-md border border-hairline bg-canvas p-4 text-body-md text-ink outline-none focus:border-primary"
-        />
+        <section className="flex flex-col gap-3">
+          <h2 className="text-title-md font-medium text-ink">
+            자기소개서 <span className="text-body-sm text-muted">(선택)</span>
+          </h2>
+          <FileDropzone
+            label="자기소개서 파일을 끌어다 놓거나 클릭해 선택"
+            accept=".txt,.md,.pdf,.docx"
+            hint={FILE_HINT}
+            fileName={coverLetter.fileName}
+            onFile={(f) => onFile('coverLetter', f)}
+          />
+          <textarea
+            value={coverLetter.text}
+            onChange={(e) => setSource('coverLetter', { text: e.target.value })}
+            placeholder="자기소개서 내용을 직접 입력하거나 파일에서 불러오세요."
+            className="min-h-40 rounded-md border border-hairline bg-canvas p-4 text-body-md text-ink outline-none focus:border-primary"
+          />
+        </section>
+
         <div className="flex justify-end">
-          <Button onClick={() => navigate('/setup')} disabled={resumeText.trim().length === 0}>
+          <Button onClick={() => navigate('/setup')} disabled={!resumeReady}>
             다음
           </Button>
         </div>
