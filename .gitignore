@@ -13,3 +13,6 @@ backend/samples/*
 # Hugging Face model cache
 .cache/
 .env
+
+# 구현 보고서 출력물 (report 에이전트 생성물)
+.report/
