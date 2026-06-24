@@ -36,21 +36,21 @@ export function PricingTierCard({
           </span>
         ) : null}
       </p>
+      <div className="mt-8">
+        <Button variant={featured ? 'secondary-on-dark' : 'primary'} className="w-full">
+          {ctaLabel}
+        </Button>
+      </div>
       <ul
         className={cn(
-          'mt-6 flex flex-col gap-2 text-body-md',
-          featured ? 'text-on-dark-soft' : 'text-body',
+          'mt-8 flex flex-col gap-2 border-t pt-8 text-body-md',
+          featured ? 'border-on-dark/10 text-on-dark-soft' : 'border-hairline text-body',
         )}
       >
         {features.map((feature) => (
           <li key={feature}>{feature}</li>
         ))}
       </ul>
-      <div className="mt-8">
-        <Button variant={featured ? 'secondary-on-dark' : 'primary'} className="w-full">
-          {ctaLabel}
-        </Button>
-      </div>
     </div>
   );
 }
