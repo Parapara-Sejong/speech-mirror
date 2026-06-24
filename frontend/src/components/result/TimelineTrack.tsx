@@ -27,8 +27,19 @@ export function TimelineTrack({ timeline, duration, currentTime, onSeek }: Props
 
   return (
     <div
-      className="relative h-8 w-full cursor-pointer overflow-hidden rounded-md bg-surface-dark-soft"
+      role="slider"
+      tabIndex={0}
+      aria-label="재생 위치"
+      aria-valuemin={0}
+      aria-valuemax={Math.round(safeDur)}
+      aria-valuenow={Math.round(currentTime)}
+      className="relative h-8 w-full cursor-pointer overflow-hidden rounded-md bg-surface-dark-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       onClick={handleClick}
+      onKeyDown={(e) => {
+        // 키보드 탐색: ←/→ 로 5초 단위 seek (WCAG 2.1.1)
+        if (e.key === 'ArrowRight') onSeek(Math.min(currentTime + 5, safeDur));
+        if (e.key === 'ArrowLeft') onSeek(Math.max(currentTime - 5, 0));
+      }}
     >
       {timeline.map((seg, i) => (
         <div

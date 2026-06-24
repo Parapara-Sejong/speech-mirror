@@ -9,7 +9,8 @@ export type AnalysisResult = {
   updatedAt: string;
 };
 
-export type ReportStatus = 'pending' | 'processing' | 'completed' | 'failed';
+// AnalysisStatus와 동일 — 중복 방지 위해 별칭
+export type ReportStatus = AnalysisStatus;
 
 export type TimelineSegment =
   | { start: number; end: number; type: 'speech' }

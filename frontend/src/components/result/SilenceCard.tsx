@@ -3,7 +3,7 @@ type Props = { silenceCount: number; longestSilence: number; speechRatio: number
 export function SilenceCard({ silenceCount, longestSilence, speechRatio }: Props) {
   const rows = [
     { label: '침묵 횟수', value: `${silenceCount}회` },
-    { label: '가장 긴 침묵', value: `${longestSilence}초` },
+    { label: '가장 긴 침묵', value: `${longestSilence.toFixed(1)}초` },
     { label: '발화 비율', value: `${Math.round(speechRatio * 100)}%` },
   ];
   return (

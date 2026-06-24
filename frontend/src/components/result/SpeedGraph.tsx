@@ -11,9 +11,9 @@ export function SpeedGraph({ rateSeries, averageWpm }: Props) {
       <h2 className="mb-1 text-title-md text-ink">말 속도</h2>
       <p className="mb-4 text-body-sm text-muted">평균 분당 {averageWpm}단어</p>
       <svg viewBox={`0 0 ${W} ${H}`} className="h-32 w-full" preserveAspectRatio="none">
-        <path d={path} fill="none" stroke="var(--color-primary)" strokeWidth={2} />
+        <path d={path} fill="none" className="stroke-primary" strokeWidth={2} />
         {points.map((p, i) => (
-          <circle key={i} cx={p.x} cy={p.y} r={3} fill="var(--color-primary)" />
+          <circle key={i} cx={p.x} cy={p.y} r={3} className="fill-primary" />
         ))}
       </svg>
     </section>
