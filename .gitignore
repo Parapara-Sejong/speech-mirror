@@ -12,3 +12,4 @@ backend/samples/*
 
 # Hugging Face model cache
 .cache/
+.env
