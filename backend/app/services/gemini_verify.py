@@ -4,7 +4,7 @@ import os
 
 logger = logging.getLogger(__name__)
 
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.1-flash-lite"
 FALLBACK_SCORE = 70  # calibration 노브: 키 없거나 실패 시 중립 점수
 
 _RESPONSE_SCHEMA = {
