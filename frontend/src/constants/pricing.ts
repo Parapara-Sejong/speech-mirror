@@ -13,7 +13,7 @@ export const PRICING_TIERS: PricingTier[] = [
     name: '무료',
     price: '₩0',
     period: '/월',
-    features: ['월 3회 모의 면접', '기본 피드백', '기록 7일 보관'],
+    features: ['월 3회 모의 면접', '기본 피드백'],
     ctaLabel: '무료로 시작',
   },
   {
@@ -21,7 +21,7 @@ export const PRICING_TIERS: PricingTier[] = [
     price: '₩9,900',
     period: '/월',
     featured: true,
-    features: ['무제한 모의 면접', 'AI 상세 피드백', '직무별 질문 세트', '기록 무제한'],
+    features: ['무제한 모의 면접', 'AI 상세 피드백', '직무별 질문 세트'],
     ctaLabel: '프로 시작하기',
   },
   {
