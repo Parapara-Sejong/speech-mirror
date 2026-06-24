@@ -15,6 +15,8 @@
 - GEMINI 모델: `gemini-2.0-flash`.
 - 비밀키는 루트 `.env`(`GEMINI_API_KEY` 등). `app/main.py`에서 `load_dotenv(Path(__file__).resolve().parents[2] / ".env")`로 로드.
 - 모든 백엔드 명령은 `backend/.venv` 활성화 상태에서 실행.
+- **테스트 코드 작성 금지(사용자 지시).** 각 태스크의 "실패 테스트/pytest" 스텝은 건너뛰고, 대신 런타임 스모크 체크(import 확인·서버 기동·Swagger·타입체크)로 검증한다. `test_*.py` 파일을 만들지 않는다.
+- **구현자는 커밋하지 않는다.** 코드만 작성하고 보고한다 — 커밋은 컨트롤러가 명시 경로로 수행(`git add -A` 금지).
 - 커밋 메시지 형식: `<type> : <설명> #<이슈번호>`. 이슈는 `20260624_기능추가_백엔드_FastAPI_질문생성_분석API`. **Co-Authored-By 금지.**
 - 발화 분석 관련 파일(`app/routers/interview.py`, `services/clova_speech.py`, `services/filler_words.py`, 프론트 `useAnalysisReportQuery.ts`)은 건드리지 않는다.
 - 주석은 한국어, WHY 중심.
