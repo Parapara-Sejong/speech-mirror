@@ -6,7 +6,7 @@ from app.schemas.questions import RecommendedQuestion
 
 logger = logging.getLogger(__name__)
 
-MODEL = "gemini-2.0-flash"
+MODEL = "gemini-3.1-flash-lite"
 QUESTION_COUNT = 6
 
 # 면접종류 id → (label, desc). 프론트 types.ts의 INTERVIEW_TYPES와 동기화.
