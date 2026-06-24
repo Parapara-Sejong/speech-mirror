@@ -1,1 +1,14 @@
 .DS_Store
+.playwright-mcp
+
+# Python backend
+backend/.venv/
+backend/__pycache__/
+backend/**/*.pyc
+
+# Local test audio/video
+backend/samples/*
+!backend/samples/.gitkeep
+
+# Hugging Face model cache
+.cache/
