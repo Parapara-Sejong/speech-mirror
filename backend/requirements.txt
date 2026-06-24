@@ -1,3 +1,8 @@
 faster-whisper
 sounddevice
 scipy
+fastapi
+uvicorn[standard]
+python-multipart
+requests
+python-dotenv

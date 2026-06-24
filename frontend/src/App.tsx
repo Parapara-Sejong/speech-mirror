@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 
 import { AnalysisPage } from './pages/AnalysisPage';
 import { ResultPage } from './pages/ResultPage';
+import { InterviewPage } from './pages/InterviewPage';
 import { ShowcasePage } from './pages/ShowcasePage';
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
         </Link>
         <Link to="/result" className="text-ink">
           Result
+        <Link to="/interview" className="text-ink">
+          Interview
         </Link>
         <Link to="/showcase" className="text-ink">
           Showcase
@@ -21,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AnalysisPage />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/interview" element={<InterviewPage />} />
         <Route path="/showcase" element={<ShowcasePage />} />
       </Routes>
     </BrowserRouter>
